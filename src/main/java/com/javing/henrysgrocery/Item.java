@@ -4,7 +4,9 @@ public enum Item {
 
     SOUP("soup", 0.65),
     BREAD("bread", 0.8),
-    MILK("milk", 1.3);
+    MILK("milk", 1.3),
+    APPLE("apples", 0.1);
+
 
     private final String itemKey;
     private final double price;
