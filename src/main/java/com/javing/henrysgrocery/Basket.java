@@ -30,7 +30,7 @@ public class Basket {
 
     private double discountApples(String[] items) {
 
-        int appleCount = (int) stream(items).filter(i -> i.equals("apples")).count();
+        int appleCount = countItem(items, "apples");
 
         if(purchaseDate.isAfter(LocalDate.now().plusDays(3)) &&
                 purchaseDate.isBefore(LocalDate.now().plusMonths(1).with(lastDayOfMonth()).plusDays(1))) {
@@ -44,8 +44,8 @@ public class Basket {
     private double discountBread(String[] items) {
 
         double breadDiscounts = 0D;
-        int soupCount = (int) stream(items).filter(i -> i.equals("soup")).count();
-        int breadCount = (int) stream(items).filter(i -> i.equals("bread")).count();
+        int soupCount = countItem(items, "soup");
+        int breadCount = countItem(items, "bread");
 
         LocalDate validFrom = LocalDate.now().minusDays(1);
         LocalDate validTo = LocalDate.now().plusDays(6L);
@@ -63,6 +63,10 @@ public class Basket {
         }
 
         return breadDiscounts;
+    }
+
+    private int countItem(String[] items, String itemName) {
+        return (int) stream(items).filter(i -> i.equals(itemName)).count();
     }
 
 }
