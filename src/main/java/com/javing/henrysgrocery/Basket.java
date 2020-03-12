@@ -31,7 +31,12 @@ public class Basket {
 
         int appleCount = (int) stream(items).filter(i -> i.equals("apples")).count();
 
-        return appleCount * 0.01D;
+        if(purchaseDate.isAfter(LocalDate.now().plusDays(3))) {
+            return appleCount * 0.01D;
+        } else {
+            return 0D;
+        }
+
     }
 
     private double discountBread(String[] items) {
@@ -54,6 +59,7 @@ public class Basket {
 
             breadDiscounts = applicableDiscounts * 0.4;
         }
+
         return breadDiscounts;
     }
 
