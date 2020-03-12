@@ -24,7 +24,14 @@ public class Basket {
             total += getByName(item).getPrice();
         }
 
-        return parseDouble(format("%.2f", total - discountBread(items)));
+        return parseDouble(format("%.2f", total - discountBread(items) - discountApples(items)));
+    }
+
+    private double discountApples(String[] items) {
+
+        int appleCount = (int) stream(items).filter(i -> i.equals("apples")).count();
+
+        return appleCount * 0.01D;
     }
 
     private double discountBread(String[] items) {

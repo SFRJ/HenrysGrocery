@@ -70,7 +70,7 @@ public class BasketShould {
 
         Double price = basket.price("apples");
 
-        assertThat(price).isEqualTo(0.1D);
+        assertThat(price).isEqualTo(0.09D);
     }
 
     @Test
@@ -117,5 +117,16 @@ public class BasketShould {
         Double price = basket.price("soup", "soup", "bread");
 
         assertThat(price).isEqualTo(1.7D);
+    }
+
+    @Test
+    public void discountApplesWithinPromotionTime() {
+
+        LocalDate purchaseDateWithinPromotion = now().plusDays(5);
+        basket = new Basket(purchaseDateWithinPromotion);
+
+        Double price = basket.price("apples");
+
+        assertThat(price).isEqualTo(0.09D);
     }
 }
