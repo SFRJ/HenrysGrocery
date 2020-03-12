@@ -10,14 +10,20 @@ public class Basket {
     public double price(String... items) throws IllegalArgumentException {
 
         double total = 0D;
-        int soupCount = (int) stream(items).filter(i -> i.equals("soup")).count();
-        int breadCount = (int) stream(items).filter(i -> i.equals("bread")).count();
-        double breadDiscounts = 0D;
 
         for (String item : items) {
 
             total += getByName(item).getPrice();
         }
+
+        return parseDouble(format("%.2f", total - discountBread(items)));
+    }
+
+    private double discountBread(String[] items) {
+
+        double breadDiscounts = 0D;
+        int soupCount = (int) stream(items).filter(i -> i.equals("soup")).count();
+        int breadCount = (int) stream(items).filter(i -> i.equals("bread")).count();
 
         if (soupCount >= 2 && breadCount > 0) {
 
@@ -29,8 +35,7 @@ public class Basket {
 
             breadDiscounts = applicableDiscounts * 0.4;
         }
-
-        return parseDouble(format("%.2f", total - breadDiscounts));
+        return breadDiscounts;
     }
 
 }
