@@ -1,8 +1,6 @@
 package com.javing.henrysgrocery;
 
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
-import java.time.temporal.TemporalAdjusters;
 
 import static com.javing.henrysgrocery.Item.getByName;
 import static java.lang.Double.parseDouble;
