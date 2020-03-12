@@ -4,6 +4,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.time.LocalDate;
+
+import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BasketShould {
@@ -11,7 +14,7 @@ public class BasketShould {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    private Basket basket = new Basket();
+    private Basket basket = new Basket(now());
 
     @Test
     public void priceSingleSoup() throws IllegalArgumentException {
@@ -92,6 +95,15 @@ public class BasketShould {
         Double price = basket.price("soup", "soup", "soup", "soup", "bread");
 
         assertThat(price).isEqualTo(3D);
+    }
+
+    @Test
+    public void notApplyBreadDiscountPassedSevenDays() {
+        basket = new Basket(LocalDate.now().plusDays(8));
+
+        Double price = basket.price("soup", "soup", "bread");
+
+        assertThat(price).isEqualTo(2.1D);
     }
 
 }

@@ -1,11 +1,19 @@
 package com.javing.henrysgrocery;
 
+import java.time.LocalDate;
+
 import static com.javing.henrysgrocery.Item.getByName;
 import static java.lang.Double.parseDouble;
 import static java.lang.String.format;
 import static java.util.Arrays.stream;
 
 public class Basket {
+
+    private LocalDate purchaseDate;
+
+    public Basket(LocalDate purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
 
     public double price(String... items) throws IllegalArgumentException {
 
@@ -25,7 +33,11 @@ public class Basket {
         int soupCount = (int) stream(items).filter(i -> i.equals("soup")).count();
         int breadCount = (int) stream(items).filter(i -> i.equals("bread")).count();
 
-        if (soupCount >= 2 && breadCount > 0) {
+        LocalDate validFrom = LocalDate.now().minusDays(1);
+        LocalDate validTo = LocalDate.now().plusDays(6L);
+        boolean isValidDiscount = purchaseDate.isAfter(validFrom) && purchaseDate.isBefore(validTo);
+
+        if (soupCount >= 2 && breadCount > 0 && isValidDiscount) {
 
             double applicableDiscounts = soupCount / 2D;
 
