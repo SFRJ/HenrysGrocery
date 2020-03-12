@@ -70,4 +70,12 @@ public class BasketShould {
         assertThat(price).isEqualTo(0.1D);
     }
 
+    @Test
+    public void applyDiscountOnBread() {
+
+        Double price = basket.price("soup", "soup", "bread");
+
+        assertThat(price).isEqualTo(1.7D);
+    }
+
 }
