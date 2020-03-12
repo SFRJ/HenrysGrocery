@@ -2,7 +2,15 @@ package com.javing.henrysgrocery;
 
 public class Basket {
 
-    public Double price(String ... soup) {
-        return 0.65D * soup.length;
+    public double price(String ... soup) {
+
+        double total = 0D;
+
+        for (String item : soup) {
+            if(item.equals("bread"))
+                total += 0.8;
+        }
+
+        return Double.parseDouble(String.format("%.2f", 0.65D + total));
     }
 }
