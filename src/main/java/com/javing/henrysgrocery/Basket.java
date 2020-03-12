@@ -35,7 +35,7 @@ public class Basket {
         int appleCount = (int) stream(items).filter(i -> i.equals("apples")).count();
 
         if(purchaseDate.isAfter(LocalDate.now().plusDays(3)) &&
-                purchaseDate.isBefore(LocalDate.now().plusMonths(1).with(lastDayOfMonth()))) {
+                purchaseDate.isBefore(LocalDate.now().plusMonths(1).with(lastDayOfMonth()).plusDays(1))) {
             return appleCount * 0.01D;
         } else {
             return 0D;
