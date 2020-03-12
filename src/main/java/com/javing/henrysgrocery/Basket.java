@@ -6,7 +6,7 @@ import static java.lang.String.format;
 
 public class Basket {
 
-    public double price(String ... items) {
+    public double price(String ... items) throws IllegalArgumentException {
 
         double total = 0D;
 
@@ -33,12 +33,13 @@ public class Basket {
             this.price = price;
         }
 
-        public static Item getByName(String name) {
+        public static Item getByName(String name) throws IllegalArgumentException {
             for (Item item : Item.values()) {
                 if(item.itemKey.equals(name))
                     return item;
             }
-            return null;
+
+            throw new IllegalArgumentException("unrecognised item");
         }
     }
 }
