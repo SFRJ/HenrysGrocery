@@ -106,4 +106,12 @@ public class BasketShould {
         assertThat(price).isEqualTo(2.1D);
     }
 
+    @Test
+    public void applyBreadDiscountUptoTheSeventhDayIncludingYesterday() {
+        basket = new Basket(LocalDate.now().plusDays(5));
+
+        Double price = basket.price("soup", "soup", "bread");
+
+        assertThat(price).isEqualTo(1.7D);
+    }
 }
