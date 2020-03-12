@@ -7,7 +7,8 @@ public class Application {
 
     public static void main(String[] args) {
 
-        Basket basket = new Basket(LocalDate.now());
+        DiscountCalculator discountCalculator = new DiscountCalculator(LocalDate.now());
+        Basket basket = new Basket(discountCalculator);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to Henry's Grocery program");
         System.out.println("The items you can add to the basket are: soup, milk, apples, bread");

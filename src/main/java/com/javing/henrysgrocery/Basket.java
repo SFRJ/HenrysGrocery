@@ -15,6 +15,7 @@ public class Basket {
         this.discountCalculator = discountCalculator;
     }
 
+    @Deprecated
     public Basket(LocalDate purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
