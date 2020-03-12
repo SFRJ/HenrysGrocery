@@ -53,4 +53,14 @@ public class BasketShould {
 
         basket.price("INVALID ITEM");
     }
+
+    @Test
+    public void priceSingleMilk() {
+
+        Double price = basket.price("milk");
+
+        assertThat(price).isEqualTo(1.3D);
+    }
+
+
 }

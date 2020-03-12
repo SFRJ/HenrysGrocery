@@ -3,7 +3,8 @@ package com.javing.henrysgrocery;
 public enum Item {
 
     SOUP("soup", 0.65),
-    BREAD("bread", 0.8);
+    BREAD("bread", 0.8),
+    MILK("milk", 1.3);
 
     private final String itemKey;
     private final double price;
