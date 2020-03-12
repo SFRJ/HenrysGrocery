@@ -53,7 +53,7 @@ public class Basket {
 
         if (soupCount >= 2 && breadCount > 0 && isValidDiscount) {
 
-            double applicableDiscounts = soupCount / 2D;
+            int applicableDiscounts = Double.valueOf(soupCount / 2D).intValue();
 
             if (applicableDiscounts > breadCount) {
                 applicableDiscounts -= breadCount;

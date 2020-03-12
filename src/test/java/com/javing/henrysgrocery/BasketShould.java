@@ -50,6 +50,14 @@ public class BasketShould {
     }
 
     @Test
+    public void priceThreeSoupsAndTwoBreads() {
+
+        Double price = basket.price("soup", "soup", "soup", "bread", "bread");
+
+        assertThat(price).isEqualTo(3.15D);
+    }
+
+    @Test
     public void notAllowUnrecognisedItem() throws IllegalArgumentException {
 
         expectedException.expect(IllegalArgumentException.class);
@@ -154,5 +162,4 @@ public class BasketShould {
 
         assertThat(price).isEqualTo(0.1D);
     }
-
 }
