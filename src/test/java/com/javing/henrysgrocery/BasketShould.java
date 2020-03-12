@@ -98,7 +98,7 @@ public class BasketShould {
     }
 
     @Test
-    public void notApplyBreadDiscountPassedSevenDaysIncludingYesterday() {
+    public void notApplyBreadDiscountPassedSevenDaysCountingFromYesterday() {
         basket = new Basket(LocalDate.now().plusDays(6));
 
         Double price = basket.price("soup", "soup", "bread");
@@ -107,7 +107,7 @@ public class BasketShould {
     }
 
     @Test
-    public void applyBreadDiscountUptoTheSeventhDayIncludingYesterday() {
+    public void applyBreadDiscountUptoTheSeventhDayCountingFromYesterday() {
         basket = new Basket(LocalDate.now().plusDays(5));
 
         Double price = basket.price("soup", "soup", "bread");
