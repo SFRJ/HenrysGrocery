@@ -102,4 +102,24 @@ public class DiscountCalculatorShould {
 
         assertThat(price).isEqualTo(1.97D);
     }
+
+    @Test
+    public void applesPromotionForApplesAndMilkBoughtInFiveDays() {
+
+        LocalDate purchaseDateWithinPromotion = now().plusDays(5);
+        discountCalculator = new DiscountCalculator(purchaseDateWithinPromotion);
+
+        Double price = discountCalculator.price("apples", "apples", "apples", "apples", "apples", "apples", "milk");
+
+        assertThat(price).isEqualTo(1.84D);
+    }
+
+    @Test
+    public void priceThreeSoupsAndTwoBreads() {
+
+        Double price = discountCalculator.price("soup", "soup", "soup", "bread", "bread");
+
+        assertThat(price).isEqualTo(3.15D);
+    }
+
 }

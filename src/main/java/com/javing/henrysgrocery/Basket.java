@@ -30,7 +30,7 @@ public class Basket {
             total += getByName(item).getPrice();
         }
 
-        return parseDouble(format("%.2f", total - discountBread(items) - discountApples(items)));
+        return parseDouble(format("%.2f", total - discountCalculator.discountBread(items) - discountCalculator.discountApples(items)));
     }
 
     private double discountApples(String[] items) {

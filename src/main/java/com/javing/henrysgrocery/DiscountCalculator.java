@@ -28,7 +28,7 @@ public class DiscountCalculator {
         return parseDouble(format("%.2f", total - discountBread(items) - discountApples(items)));
     }
 
-    private double discountApples(String[] items) {
+    public double discountApples(String[] items) {
 
         int appleCount = countItem(items, "apples");
 
@@ -41,7 +41,7 @@ public class DiscountCalculator {
 
     }
 
-    private double discountBread(String[] items) {
+    public double discountBread(String[] items) {
 
         double breadDiscounts = 0D;
         int soupCount = countItem(items, "soup");
