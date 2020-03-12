@@ -11,7 +11,7 @@ public class Basket {
         double total = 0D;
         int soupCount = 0;
         int breadCount = 0;
-        double totalBreadDiscount = 0D;
+        double breadDiscounts = 0D;
 
         for (String item : items) {
 
@@ -27,12 +27,11 @@ public class Basket {
 
         }
 
-        if(soupCount > 0) {
-            totalBreadDiscount = (soupCount / 2) * 0.4;
+        if(soupCount >= 2 && breadCount > 0) {
+            breadDiscounts = (soupCount / 2D) * 0.4;
         }
 
-        return parseDouble(format("%.2f", total - (totalBreadDiscount * breadCount)));
+        return parseDouble(format("%.2f", total - breadDiscounts));
     }
-
 
 }
