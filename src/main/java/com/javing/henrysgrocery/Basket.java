@@ -1,8 +1,5 @@
 package com.javing.henrysgrocery;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static com.javing.henrysgrocery.Item.getByName;
 import static java.lang.Double.parseDouble;
 import static java.lang.String.format;
