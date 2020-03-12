@@ -10,10 +10,12 @@ public class Basket {
         double total = 0D;
 
         for (String item : soup) {
+            if(item.equals("soup"))
+                total += 0.65D;
             if(item.equals("bread"))
                 total += 0.8;
         }
 
-        return parseDouble(format("%.2f", 0.65D + total));
+        return parseDouble(format("%.2f", total));
     }
 }
