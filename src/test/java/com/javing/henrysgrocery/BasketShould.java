@@ -99,7 +99,7 @@ public class BasketShould {
 
     @Test
     public void notApplyBreadDiscountPassedSevenDays() {
-        basket = new Basket(LocalDate.now().plusDays(8));
+        basket = new Basket(LocalDate.now().plusDays(6));
 
         Double price = basket.price("soup", "soup", "bread");
 
