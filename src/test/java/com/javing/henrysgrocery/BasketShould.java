@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 
 import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -128,6 +129,18 @@ public class BasketShould {
         Double price = basket.price("apples");
 
         assertThat(price).isEqualTo(0.09D);
+    }
+
+    @Test
+    public void applesPromotionNotValidAfterendOfFollowingMonth() {
+
+        LocalDate purchaseDateNotInPromotion = now().plusMonths(1).with(TemporalAdjusters.lastDayOfMonth());
+
+        basket = new Basket(purchaseDateNotInPromotion);
+
+        Double price = basket.price("apples");
+
+        assertThat(price).isEqualTo(0.1D);
     }
 
 }
