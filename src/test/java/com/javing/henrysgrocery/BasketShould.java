@@ -83,6 +83,14 @@ public class BasketShould {
     }
 
     @Test
+    public void priceApplesAndMilkBoughtToday() {
+
+        Double price = basket.price("apples", "apples", "apples", "apples", "apples", "apples", "milk");
+
+        assertThat(price).isEqualTo(1.9D);
+    }
+
+    @Test
     public void applyDiscountOnBread() {
 
         Double price = basket.price("soup", "soup", "bread");
