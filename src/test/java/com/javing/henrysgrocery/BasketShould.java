@@ -17,7 +17,7 @@ public class BasketShould {
     }
 
     @Test
-    public void pricingTwoCansOfSoup() {
+    public void priceTwoCansOfSoup() {
 
         Basket basket = new Basket();
 
