@@ -3,6 +3,7 @@ package com.javing.henrysgrocery;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
 
 import java.time.LocalDate;
 
@@ -14,13 +15,14 @@ public class BasketShould {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-
-    private Basket basket = new Basket(now());
+    private DiscountCalculator discountCalculator = Mockito.mock(DiscountCalculator.class);
+    private Basket basketOld = new Basket(now());
+    private Basket basket = new Basket(discountCalculator);
 
     @Test
     public void priceSingleSoup() throws IllegalArgumentException {
 
-        Double price = basket.price("soup");
+        Double price = basketOld.price("soup");
 
         assertThat(price).isEqualTo(0.65D);
     }
@@ -28,7 +30,7 @@ public class BasketShould {
     @Test
     public void priceTwoCansOfSoup() throws IllegalArgumentException {
 
-        Double price = basket.price("soup", "soup");
+        Double price = basketOld.price("soup", "soup");
 
         assertThat(price).isEqualTo(1.3D);
     }
@@ -36,7 +38,7 @@ public class BasketShould {
     @Test
     public void priceSingleSoupAndSingleBread() throws IllegalArgumentException {
 
-        Double price = basket.price("soup", "bread");
+        Double price = basketOld.price("soup", "bread");
 
         assertThat(price).isEqualTo(1.45D);
     }
@@ -44,7 +46,7 @@ public class BasketShould {
     @Test
     public void priceSingleSoupAndTwoBreads() throws IllegalArgumentException {
 
-        Double price = basket.price("soup", "bread", "bread");
+        Double price = basketOld.price("soup", "bread", "bread");
 
         assertThat(price).isEqualTo(2.25D);
     }
@@ -52,7 +54,7 @@ public class BasketShould {
     @Test
     public void priceThreeSoupsAndTwoBreads() {
 
-        Double price = basket.price("soup", "soup", "soup", "bread", "bread");
+        Double price = basketOld.price("soup", "soup", "soup", "bread", "bread");
 
         assertThat(price).isEqualTo(3.15D);
     }
@@ -63,13 +65,13 @@ public class BasketShould {
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("unrecognised item");
 
-        basket.price("INVALID ITEM");
+        basketOld.price("INVALID ITEM");
     }
 
     @Test
     public void priceSingleMilk() {
 
-        Double price = basket.price("milk");
+        Double price = basketOld.price("milk");
 
         assertThat(price).isEqualTo(1.3D);
     }
@@ -77,7 +79,7 @@ public class BasketShould {
     @Test
     public void priceSingleApple() {
 
-        Double price = basket.price("apples");
+        Double price = basketOld.price("apples");
 
         assertThat(price).isEqualTo(0.1D);
     }
@@ -85,7 +87,7 @@ public class BasketShould {
     @Test
     public void priceApplesAndMilkBoughtToday() {
 
-        Double price = basket.price("apples", "apples", "apples", "apples", "apples", "apples", "milk");
+        Double price = basketOld.price("apples", "apples", "apples", "apples", "apples", "apples", "milk");
 
         assertThat(price).isEqualTo(1.9D);
     }
@@ -94,9 +96,9 @@ public class BasketShould {
     public void applesPromotionForApplesAndMilkBoughtInFiveDays() {
 
         LocalDate purchaseDateWithinPromotion = now().plusDays(5);
-        basket = new Basket(purchaseDateWithinPromotion);
+        basketOld = new Basket(purchaseDateWithinPromotion);
 
-        Double price = basket.price("apples", "apples", "apples", "apples", "apples", "apples", "milk");
+        Double price = basketOld.price("apples", "apples", "apples", "apples", "apples", "apples", "milk");
 
         assertThat(price).isEqualTo(1.84D);
     }
@@ -104,7 +106,7 @@ public class BasketShould {
     @Test
     public void applyDiscountOnBread() {
 
-        Double price = basket.price("soup", "soup", "bread");
+        Double price = basketOld.price("soup", "soup", "bread");
 
         assertThat(price).isEqualTo(1.7D);
     }
@@ -112,7 +114,7 @@ public class BasketShould {
     @Test
     public void applyDiscountOnBreadTwice() {
 
-        Double price = basket.price("soup", "soup", "soup", "soup", "bread", "bread");
+        Double price = basketOld.price("soup", "soup", "soup", "soup", "bread", "bread");
 
         assertThat(price).isEqualTo(3.4D);
     }
@@ -120,7 +122,7 @@ public class BasketShould {
     @Test
     public void applyBreadDiscountWhenNecesaryOnly() {
 
-        Double price = basket.price("soup", "soup", "soup", "soup", "bread");
+        Double price = basketOld.price("soup", "soup", "soup", "soup", "bread");
 
         assertThat(price).isEqualTo(3D);
     }
@@ -129,9 +131,9 @@ public class BasketShould {
     public void notApplyBreadDiscountPassedSevenDaysCountingFromYesterday() {
 
         LocalDate purchaseDateAfterPromotion = now().plusDays(6);
-        basket = new Basket(purchaseDateAfterPromotion);
+        basketOld = new Basket(purchaseDateAfterPromotion);
 
-        Double price = basket.price("soup", "soup", "bread");
+        Double price = basketOld.price("soup", "soup", "bread");
 
         assertThat(price).isEqualTo(2.1D);
     }
@@ -140,9 +142,9 @@ public class BasketShould {
     public void applyBreadDiscountUptoTheSeventhDayCountingFromYesterday() {
 
         LocalDate purchaseDateWithinPromotion = now().plusDays(5);
-        basket = new Basket(purchaseDateWithinPromotion);
+        basketOld = new Basket(purchaseDateWithinPromotion);
 
-        Double price = basket.price("soup", "soup", "bread");
+        Double price = basketOld.price("soup", "soup", "bread");
 
         assertThat(price).isEqualTo(1.7D);
     }
@@ -151,9 +153,9 @@ public class BasketShould {
     public void applesPromotionStartsAfterThreedays() {
 
         LocalDate purchaseDateWithinPromotion = now().plusDays(4);
-        basket = new Basket(purchaseDateWithinPromotion);
+        basketOld = new Basket(purchaseDateWithinPromotion);
 
-        Double price = basket.price("apples");
+        Double price = basketOld.price("apples");
 
         assertThat(price).isEqualTo(0.09D);
     }
@@ -163,9 +165,9 @@ public class BasketShould {
 
         LocalDate purchaseDateNotInPromotion = now().plusMonths(1).with(lastDayOfMonth());
 
-        basket = new Basket(purchaseDateNotInPromotion);
+        basketOld = new Basket(purchaseDateNotInPromotion);
 
-        Double price = basket.price("apples");
+        Double price = basketOld.price("apples");
 
         assertThat(price).isEqualTo(0.09D);
     }
@@ -175,9 +177,9 @@ public class BasketShould {
 
         LocalDate purchaseDateNotInPromotion = now().plusMonths(1).with(lastDayOfMonth()).plusDays(1);
 
-        basket = new Basket(purchaseDateNotInPromotion);
+        basketOld = new Basket(purchaseDateNotInPromotion);
 
-        Double price = basket.price("apples");
+        Double price = basketOld.price("apples");
 
         assertThat(price).isEqualTo(0.1D);
     }
@@ -185,9 +187,9 @@ public class BasketShould {
     @Test
     public void priceCorrectlyAVarietyOfProductsPurchasedInFiveDays() {
         LocalDate purchaseDateWithinPromotion = now().plusDays(5);
-        basket = new Basket(purchaseDateWithinPromotion);
+        basketOld = new Basket(purchaseDateWithinPromotion);
 
-        Double price = basket.price("apples", "apples", "apples", "soup", "soup", "bread");
+        Double price = basketOld.price("apples", "apples", "apples", "soup", "soup", "bread");
 
         assertThat(price).isEqualTo(1.97D);
     }

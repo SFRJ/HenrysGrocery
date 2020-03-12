@@ -11,6 +11,11 @@ import static java.util.Arrays.stream;
 public class Basket {
 
     private LocalDate purchaseDate;
+    private DiscountCalculator discountCalculator;
+
+    public Basket(DiscountCalculator discountCalculator) {
+        this.discountCalculator = discountCalculator;
+    }
 
     public Basket(LocalDate purchaseDate) {
         this.purchaseDate = purchaseDate;
