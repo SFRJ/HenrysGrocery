@@ -1,8 +1,11 @@
 package com.javing.henrysgrocery;
 
+import java.util.Arrays;
+
 import static com.javing.henrysgrocery.Item.getByName;
 import static java.lang.Double.parseDouble;
 import static java.lang.String.format;
+import static java.util.Arrays.stream;
 
 public class Basket {
 
@@ -14,14 +17,12 @@ public class Basket {
 
     public double price(String... items) throws IllegalArgumentException {
 
-        double total = 0D;
-
-        for (String item : items) {
-
-            total += getByName(item).getPrice();
-        }
-
-        return parseDouble(format("%.2f", total - discountCalculator.discountBread(items) - discountCalculator.discountApples(items)));
+        return stream(items)
+                .map(item -> getByName(item).getPrice())
+                .reduce(Double::sum)
+                .map(result -> parseDouble(format("%.2f",
+                        result - discountCalculator.discountBread(items) - discountCalculator.discountApples(items))))
+                .get();
     }
 
 }
