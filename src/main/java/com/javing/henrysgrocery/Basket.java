@@ -5,21 +5,20 @@ import static java.lang.String.format;
 
 public class Basket {
 
-    public double price(String ... soup) {
+    public double price(String ... items) {
 
         double total = 0D;
 
-        for (String item : soup) {
-            if(item.equals("soup"))
-                total += 0.65D;
-            if(item.equals("bread"))
-                total += 0.8;
+        for (String item : items) {
+
+            total += Item.getByName(item).price;
+
         }
 
         return parseDouble(format("%.2f", total));
     }
 
-    private enum Item {
+     enum Item {
 
         SOUP("soup", 0.65),
         BREAD("bread", 0.8);
@@ -33,7 +32,7 @@ public class Basket {
             this.price = price;
         }
 
-        public Item getByName(String name) {
+        public static Item getByName(String name) {
             for (Item item : Item.values()) {
                 if(item.itemKey.equals(name))
                     return item;
