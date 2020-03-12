@@ -1,5 +1,8 @@
 package com.javing.henrysgrocery;
 
+import static java.lang.Double.parseDouble;
+import static java.lang.String.format;
+
 public class Basket {
 
     public double price(String ... soup) {
@@ -11,6 +14,6 @@ public class Basket {
                 total += 0.8;
         }
 
-        return Double.parseDouble(String.format("%.2f", 0.65D + total));
+        return parseDouble(format("%.2f", 0.65D + total));
     }
 }
