@@ -1,5 +1,6 @@
 package com.javing.henrysgrocery;
 
+import static com.javing.henrysgrocery.Basket.Item.getByName;
 import static java.lang.Double.parseDouble;
 import static java.lang.String.format;
 
@@ -11,7 +12,7 @@ public class Basket {
 
         for (String item : items) {
 
-            total += Item.getByName(item).price;
+            total += getByName(item).price;
 
         }
 
