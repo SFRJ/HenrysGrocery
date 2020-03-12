@@ -181,4 +181,15 @@ public class BasketShould {
 
         assertThat(price).isEqualTo(0.1D);
     }
+
+    @Test
+    public void priceCorrectlyAVarietyOfProductsPurchasedInFiveDays() {
+        LocalDate purchaseDateWithinPromotion = now().plusDays(5);
+        basket = new Basket(purchaseDateWithinPromotion);
+
+        Double price = basket.price("apples", "apples", "apples", "soup", "soup", "bread");
+
+        assertThat(price).isEqualTo(1.97D);
+    }
+
 }
