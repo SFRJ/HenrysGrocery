@@ -11,10 +11,10 @@ public class BasketShould {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
+    private Basket basket = new Basket();
+
     @Test
     public void priceSingleSoup() throws IllegalArgumentException {
-
-        Basket basket = new Basket();
 
         Double price = basket.price("soup");
 
@@ -24,8 +24,6 @@ public class BasketShould {
     @Test
     public void priceTwoCansOfSoup() throws IllegalArgumentException {
 
-        Basket basket = new Basket();
-
         Double price = basket.price("soup", "soup");
 
         assertThat(price).isEqualTo(1.3D);
@@ -33,8 +31,6 @@ public class BasketShould {
 
     @Test
     public void priceSingleSoupAndSingleBread() throws IllegalArgumentException {
-
-        Basket basket = new Basket();
 
         Double price = basket.price("soup", "bread");
 
@@ -44,8 +40,6 @@ public class BasketShould {
     @Test
     public void priceSingleSoupAndTwoBreads() throws IllegalArgumentException {
 
-        Basket basket = new Basket();
-
         Double price = basket.price("soup", "bread", "bread");
 
         assertThat(price).isEqualTo(2.25D);
@@ -53,8 +47,6 @@ public class BasketShould {
 
     @Test
     public void notAllowUnrecognisedItem() throws IllegalArgumentException {
-
-        Basket basket = new Basket();
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("unrecognised item");
