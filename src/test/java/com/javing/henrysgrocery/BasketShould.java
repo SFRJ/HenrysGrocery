@@ -143,4 +143,16 @@ public class BasketShould {
         assertThat(price).isEqualTo(0.09D);
     }
 
+    @Test
+    public void applesPromotionNotValidAfterLastDayOfNextMonth() {
+
+        LocalDate purchaseDateNotInPromotion = now().plusMonths(1).with(lastDayOfMonth()).plusDays(1);
+
+        basket = new Basket(purchaseDateNotInPromotion);
+
+        Double price = basket.price("apples");
+
+        assertThat(price).isEqualTo(0.1D);
+    }
+
 }
